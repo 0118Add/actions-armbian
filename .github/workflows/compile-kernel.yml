@@ -45,7 +45,7 @@ jobs:
           [ -z "${kernel_repo}"] && kernel_repo="kernel.org"
           echo "KERNEL_REPO=${kernel_repo}" >> $GITHUB_ENV
           kernel_version="${{ github.event.inputs.kernel_version }}"
-          [ -z "${kernel_version}" ] && kernel_version="5.4.170_5.10.90"
+          [ -z "${kernel_version}" ] && kernel_version="5.10.90_5.4.170_5.15.15_5.16.2"
           echo "KERNEL_VERSION=${kernel_version}" >> $GITHUB_ENV
       - name: Compile the kernel for Amlogic s9xxx
         id: compile
