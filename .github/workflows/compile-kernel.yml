@@ -16,7 +16,7 @@ on:
       kernel_version:
         description: "Kernel version: 5.4.170"
         required: false
-        default: "5.10.90_5.4.170"
+        default: "5.10.90_5.4.170_5.15.15_5.16.2"
 
 env:
   TZ: Asia/Shanghai
