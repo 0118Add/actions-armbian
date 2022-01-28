@@ -1,4 +1,10 @@
-name: Actions armbian
+#==========================================================================
+# Description: Build Armbian For Amlogic s9xxx tv box
+# Copyright (C) 2021 https://github.com/ophub/amlogic-s9xxx-armbian
+#==========================================================================
+
+
+ame: Actions armbian
 
 on:
   repository_dispatch:
