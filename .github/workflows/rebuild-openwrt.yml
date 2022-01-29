@@ -87,7 +87,7 @@ jobs:
         with:
           build_target: kernel
           armbian_soc: s905x3_s905d
-          kernel_version: 5.15.13_5.4.170
+          kernel_version: 5.10.90_5.4.170_5.15.15_5.16.2
           kernel_auto: true
           kernel_sign: -BGG
  
