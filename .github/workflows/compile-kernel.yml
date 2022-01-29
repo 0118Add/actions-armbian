@@ -75,6 +75,7 @@ jobs:
           kernel_sign: -BGG
 
       - name: Upload Kernel to Release
+        id: release
         uses: ncipollo/release-action@v1
         if: steps.compile.outputs.status == 'success' && !cancelled()
         with:
