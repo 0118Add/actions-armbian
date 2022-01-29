@@ -91,7 +91,7 @@ jobs:
           kernel_auto: true
           kernel_sign: -BGG
  
-     - name: Upload Armbian image to Release
+      - name: Upload Armbian image to Release
         id: release
         uses: ncipollo/release-action@v1
         if: env.PACKAGED_STATUS == 'success' && !cancelled()
