@@ -84,11 +84,11 @@ jobs:
       - name: Compile the kernel for Amlogic s9xxx
         uses: ophub/amlogic-s9xxx-armbian@main
         with:
-          build_target: kernel
-          armbian_soc: s905x3_s905d
+          build_target: armbian
+         armbian_path: build/output/images/*.img
+         armbian_soc: s905d
           kernel_version: 5.10.90_5.4.170_5.15.15_5.16.2
-          kernel_auto: true
-          kernel_sign: -BGG
+          
  
       - name: Upload Armbian image to Release
         id: release
