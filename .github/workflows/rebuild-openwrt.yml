@@ -1,18 +1,35 @@
+
 #==========================================================================
-# Description: Build Armbian For Amlogic s9xxx tv box
+# Description: Compile the Armbian kernel
 # Copyright (C) 2021 https://github.com/ophub/amlogic-s9xxx-armbian
 #==========================================================================
 
-name: Rebuild armbian
+name: Compile the kernel
 
 on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      armbian_url:
-        description: "Input armbian path"
+      kernel_repo:
+        description: "Source: kernel.org / unifreq"
         required: false
-        default: ""
+        default: "unifreq"
+      kernel_version:
+        description: "Kernel version: 5.4.170"
+        required: false
+        default: "5.10.90_5.4.170_5.15.15_5.16.2"
+      kernel_auto:
+        description: "Auto use the latest kernel"
+        required: false
+        default: "true"
+      kernel_sign:
+        description: "Set the kernel custom signature"
+        required: false
+        default: "-BGG"
+      kernel_config:
+        description: "Set the path of kernel .config"
+        required: false
+        default: "compile-kernel/tools/config"
 
 env:
   TZ: Asia/Shanghai
@@ -65,14 +82,16 @@ jobs:
               let i++
           done
           echo "ARMBIAN_RELEASE=${set_release}" >> $GITHUB_ENV
-      - name: Rebuild Armbian for Amlogic s9xxx
+      - name: Compile the kernel for Amlogic s9xxx
         uses: ophub/amlogic-s9xxx-armbian@main
         with:
-          armbian_path: ${{ env.ARMBIAN_URL }}
+          build_target: kernel
           armbian_soc: s905x3_s905d
-          armbian_kernel: 5.4.170_5.10.90_5.15.12_5.16.2
-
-      - name: Upload Armbian image to Release
+          kernel_version: 5.15.13_5.4.170
+          kernel_auto: true
+          kernel_sign: -BGG
+ 
+     - name: Upload Armbian image to Release
         id: release
         uses: ncipollo/release-action@v1
         if: env.PACKAGED_STATUS == 'success' && !cancelled()
