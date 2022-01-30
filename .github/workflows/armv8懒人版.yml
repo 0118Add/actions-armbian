@@ -4,8 +4,8 @@ on:
   repository_dispatch:
     types: larmv8
   workflow_dispatch:
-  schedule:
-    - cron: 00 16 * * *
+  #schedule:
+    #- cron: 00 16 * * *
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
