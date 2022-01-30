@@ -14,6 +14,19 @@ git clone https://github.com/fw876/helloworld.git package/openwrt-packages/hello
 git clone https://github.com/xiaorouji/openwrt-passwall.git package/openwrt-packages/luci-app-passwall
 git clone https://github.com/immortalwrt/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
 git clone https://github.com/ophub/luci-app-amlogic.git package/openwrt-packages/luci-app-amlogic
+git clone -b revert-271-18.06_bing https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon-18.06
+git clone https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
+# Add autocore support for armvirt
+sed -i 's/TARGET_rockchip/TARGET_rockchip\|\|TARGET_armvirt/g' package/lean/autocore/Makefile
+
+# 添加旁路由防火墙
+echo "iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE" >> package/network/config/firewall/files/firewall.user
+
+# 替换banner
+wget -O ./package/base-files/files/etc/banner https://raw.githubusercontent.com/0118Add/Armbian/main/router/Openwrt_N1/diy/n1_lede/banner
+
+#sed -i 's/^\s*$[(]call\sEnsureVendoredVersion/#&/' feeds/packages/utils/dockerd/Makefile
+sed -i '175i\  --with-sandbox=rlimit \\' feeds/packages/net/openssh//Makefile
 
 #更新安装feeds
 ./scripts/feeds update -a
