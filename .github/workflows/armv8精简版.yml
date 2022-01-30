@@ -94,5 +94,5 @@ jobs:
       with:
         token: ${{ secrets.RELEASES_TOKEN }}
         event-type: jdb
-    - name: pushbot推送
-      run: curl -H "Content-Type:application/json" -X POST -d '{"token":"${{ secrets.pushbot }}","title":"Actions云编译","content":"${{ env.FILE_NAME }}发布成功-编译结束${{ env.time }}","template":"json"}' http://www.pushplus.plus/send
+    #- name: pushbot推送
+      #run: curl -H "Content-Type:application/json" -X POST -d '{"token":"${{ secrets.pushbot }}","title":"Actions云编译","content":"${{ env.FILE_NAME }}发布成功-编译结束${{ env.time }}","template":"json"}' http://www.pushplus.plus/send
