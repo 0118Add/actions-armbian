@@ -58,6 +58,7 @@ jobs:
         uses: ophub/amlogic-s9xxx-armbian@main
         with:
           build_target: kernel
+          armbian_soc: s905d_s905x3
           kernel_version: 5.10.100_5.4.180_5.15.20_5.16.5
           kernel_auto: true
           kernel_sign: -BGG
