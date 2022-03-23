@@ -81,18 +81,14 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
-        name: ${{ env.DATE }} 🚀 armv8系列精简版 | 自动编译
+        name: ${{ env.DATE }} 🚀 ipq807x-5.15 | 自动编译
         allowUpdates: true
-        tag: jarmv8
+        tag: ipq807x-5.15
         commit: main
         token: ${{ secrets.RELEASES_TOKEN }}
         body: |
           ${{ env.useVersionInfo }}
         artifacts: openwrt/bin/targets/*/*/config.buildinfo,openwrt/bin/targets/*/*/*.tar.gz
-    - name: 触发打包流
-      uses: peter-evans/repository-dispatch@v1
-      with:
-        token: ${{ secrets.RELEASES_TOKEN }}
-        event-type: jdb
+ 
     #- name: pushbot推送
       #run: curl -H "Content-Type:application/json" -X POST -d '{"token":"${{ secrets.pushbot }}","title":"Actions云编译","content":"${{ env.FILE_NAME }}发布成功-编译结束${{ env.time }}","template":"json"}' http://www.pushplus.plus/send
