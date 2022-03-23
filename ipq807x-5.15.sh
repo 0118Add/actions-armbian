@@ -1,6 +1,9 @@
 #!/bin/bash
 #添加额外软件包
-
+git clone https://github.com/fw876/helloworld.git package/helloworld
+git clone https://github.com/xiaorouji/openwrt-passwall.git package/openwrt-passwall
+git clone https://github.com/vernesong/OpenClash.git package/OpenClash
+git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic package/luci-app-unblockneteasemusic
 
 #更新安装feeds
 ./scripts/feeds update -a
