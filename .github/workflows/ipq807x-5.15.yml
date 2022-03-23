@@ -1,22 +1,22 @@
-name: armv8精简版
+name: ipq807x-5.15
 
 on:
   repository_dispatch:
-    types: jarmv8
+    types: ipq807x
   workflow_dispatch:
   #schedule:
     #- cron: 00 16 * * *
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_BRANCH: master
-  CONFIG_FILE: jarmv8.config
+  REPO_URL: https://github.com/robimarko/openwrt
+  REPO_BRANCH: ipq807x-5.15
+  CONFIG_FILE: ipq807x-5.15.config
   DIY1_SH: diy1.sh
-  DIY3_SH: diy3.sh
+  DIY3_SH: ipq807x-5.15.sh
   FEEDS_CONF: feeds
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-  FILE_NAME: armv8精简版
+  FILE_NAME: ipq807x-5.15
 
 jobs:
   build:
