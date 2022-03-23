@@ -11,7 +11,7 @@ env:
   REPO_URL: https://github.com/robimarko/openwrt
   REPO_BRANCH: ipq807x-5.15
   CONFIG_FILE: ipq807x-5.15.config
-  DIY1_SH: diy1.sh
+  DIY1_SH: diy01.sh
   DIY3_SH: ipq807x-5.15.sh
   FEEDS_CONF: feeds
   UPLOAD_RELEASE: true
