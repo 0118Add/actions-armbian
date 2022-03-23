@@ -4,6 +4,7 @@ git clone https://github.com/fw876/helloworld.git package/helloworld
 git clone https://github.com/xiaorouji/openwrt-passwall.git package/openwrt-passwall
 git clone https://github.com/vernesong/OpenClash.git package/OpenClash
 git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic package/luci-app-unblockneteasemusic
+svn co https://github.com/coolsnowwolf/packages/trunk/net/redsocks2 package/redsocks2
 
 #更新安装feeds
 ./scripts/feeds update -a
