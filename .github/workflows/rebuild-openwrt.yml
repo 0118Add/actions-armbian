@@ -3,7 +3,7 @@
 # Copyright (C) 2021 https://github.com/ophub/amlogic-s9xxx-armbian
 #==========================================================================
 
-name: Rebuild the kernel
+name: Compile the kernel
 
 on:
   repository_dispatch:
@@ -14,9 +14,9 @@ on:
         required: false
         default: "unifreq"
       kernel_version:
-        description: "Kernel version: 5.4.170"
+        description: "Kernel version: 5.10.100"
         required: false
-        default: "5.10.90_5.4.170_5.15.15_5.16.2"
+        default: "5.15.25_5.10.100_5.17.3"
       kernel_auto:
         description: "Auto use the latest kernel"
         required: false
@@ -24,11 +24,11 @@ on:
       kernel_sign:
         description: "Set the kernel custom signature"
         required: false
-        default: "-lover brother"
+        default: "-xiaoming"
       kernel_config:
         description: "Set the path of kernel .config"
         required: false
-        default: "compile-kernel/tools/config"
+        default: ""
 
 env:
   TZ: Asia/Shanghai
@@ -48,40 +48,11 @@ jobs:
         run: |
           sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
           sudo -E apt-get -qq update
-          sudo -E apt-get -qq install $(curl -fsSL git.io/ubuntu-2004-server)
+          sudo -E apt-get -qq install $(curl -fsSL https://raw.githubusercontent.com/ophub/amlogic-s9xxx-armbian/main/compile-kernel/tools/script/ubuntu2004-armbian-depends)
           sudo -E apt-get -qq autoremove --purge
           sudo -E apt-get -qq clean
           sudo timedatectl set-timezone "$TZ"
-          sudo mkdir -p /workdir
-          sudo chown $USER:$GROUPS /workdir
-          # Get the url of the rebuild armbian file
-          armbian_url="${{ github.event.inputs.armbian_url }}"
-          if  [[ -z "${armbian_url}" ]]; then
-              armbian_site="https://armbian.tnahosting.net/dl/lepotato/archive/"
-              armbian_name="Armbian.*focal.*.img.xz"
-              armbian_file=$(curl -s "${armbian_site}" | grep -oE "${armbian_name}" | head -n 1)
-              if [ -n "${armbian_file}" ]; then
-                  armbian_url="${armbian_site}/${armbian_file}"
-              else
-                  echo -e "Invalid download path: [ ${armbian_site} ]"
-                  exit 1
-              fi
-          fi
-          echo "ARMBIAN_URL=${armbian_url}" >> $GITHUB_ENV
-          echo "COMPILE_STARTINGTIME=$(date +"%Y.%m.%d.%H%M")" >> $GITHUB_ENV
-          # Get the release name of the rebuild armbian file
-          set_release="_"
-          ARR_RELEASE=("bionic" "focal" "hirsute" "bullseye" "buster" "stretch")
-          i=1
-          for r in ${ARR_RELEASE[*]}; do
-              if [[ "${armbian_url}" == *${r}* ]]; then
-                  set_release="_${r}_"
-                  break
-              fi
-              let i++
-          done
-          echo "ARMBIAN_RELEASE=${set_release}" >> $GITHUB_ENV
-
+          echo "COMPILE_STARTINGTIME=$(date +"%m.%d.%H%M")" >> $GITHUB_ENV
       - name: Compile the kernel for Amlogic s9xxx
         uses: ophub/amlogic-s9xxx-armbian@main
         with:
@@ -91,21 +62,14 @@ jobs:
           kernel_auto: ${{ github.event.inputs.kernel_auto }}
           kernel_sign: ${{ github.event.inputs.kernel_sign }}
           kernel_config: ${{ github.event.inputs.kernel_config }}
-          
- 
-      - name: Upload Armbian image to Release
-        id: release
+
+      - name: Upload Kernel to Release
         uses: ncipollo/release-action@v1
         if: env.PACKAGED_STATUS == 'success' && !cancelled()
         with:
-          tag: Armbian_Aml${{ env.ARMBIAN_RELEASE }}${{ env.PACKAGED_OUTPUTDATE }}
+          tag: kernel_${{ env.PACKAGED_OUTPUTTAGS }}
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
           body: |
-            This is Armbian image for Amlogic s9xxx tv box
-            * Firmware information
-            Default username: root
-            Default password: 1234
-            Install to EMMC command: armbian-install
-            Update command: armbian-update
+            The kernel can be used to compile Armbian and OpenWrt.
