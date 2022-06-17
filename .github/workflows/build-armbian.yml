@@ -28,7 +28,7 @@ on:
       armbian_kernel:
         description: "Set kernel version."
         required: false
-        default: "5.15.25_5.10.100_5.17.3"
+        default: "5.15.25_5.10.100_5.18.3_5.4.195"
       armbian_size:
         description: "Set armbian rootfs size."
         required: false
