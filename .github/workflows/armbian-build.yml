@@ -26,7 +26,6 @@ on:
           - jammy
           - focal
           - bullseye
-          - jammy_bullseye
       set_board:
         description: "Select board name."
         required: false
